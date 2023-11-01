@@ -34,7 +34,8 @@ const struct opd_format_table OPD_FORMAT_TABLE[] = {
                         {rv,  "rv"},  
                         // first operand is a xmm register 
                         {vi,  "vi"},  {vr,  "vr"},  {vm,  "vm"},   
-                        {vv,  "vv"},  {vvm, "vvm"}, {vvmi,"vvmi"}, 
+                        {vv,  "vv"},  {vri, "vri"}, {vmi, "vmi"},
+                        {vvm, "vvm"}, {vvmi,"vvmi"}, 
                         {vvv, "vvv"}, {vvvi,"vvvi"},
                         // first operand is a ymm register 
                         {ym,  "ym"},   {yy,  "yy"},  {yym, "yym"},  
@@ -195,6 +196,7 @@ const struct instr_table INSTR_TABLE[] = {
     {{'\0'},        pand,        {rm, rr},   RM,  VECTOR,         NA,  NA,  4,  {REX,  0x0f, 0xdb, REG}},
     {"pandn",       pandn,       {vm, vv},   RM,  VECTOR,         NA,  NA,  5,  {0x66, REX, 0x0f, 0xdf, REG}},
     {{'\0'},        pandn,       {rm, rr},   RM,  VECTOR,         NA,  NA,  4,  {REX,  0x0f, 0xdf, REG}},
+    {"pinsrq",      pinsrq,      {vmi,vri},  RM,  VECTOR,         NA,  NA,  6,  {0x66, REX, 0x0f, 0x3a, 0x22, REG}},
     {"pmulhrsw",    pmulhrsw,    {vm, vv},   RM,  VECTOR,         NA,  NA,  6,  {0x66, REX, 0x0f, 0x38, 0x0b, REG}},
     {{'\0'},        pmulhrsw,    {rm, rr},   RM,  VECTOR,         NA,  NA,  5,  {REX, 0x0f, 0x38, 0x0b, REG}},
     {"pmulhuw",     pmulhuw,     {vm, vv},   RM,  VECTOR,         NA,  NA,  5,  {0x66, REX, 0x0f, 0xe4, REG}},
