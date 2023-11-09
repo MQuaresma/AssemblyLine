@@ -239,6 +239,18 @@ static int check_len_or_resize(assemblyline_t al, int buf_pos) {
     FAIL_SYS(resize == MAP_FAILED, "failed to resize buffer\n", EXIT_FAILURE)
     al->buffer_len += MEM_BUFFER;
     al->buffer = (uint8_t *)resize;
+#elif defined(__APPLE__)
+		int *ret = mmap(NULL, sizeof(uint8_t) * (al->buffer_len + MEM_BUFFER),
+										PROT_READ | PROT_WRITE | PROT_EXEC,
+										MAP_ANONYMOUS | MAP_PRIVATE | MAP_JIT, -1, 0);
+    // NOLINTNEXTLINE(performance-no-int-to-ptr)
+		FAIL_SYS(ret == MAP_FAILED, "failed to reallocate internal memory buffer\n", EXIT_FAILURE);
+		void *resize = ret;
+		resize = memmove(resize, al->buffer, al->buffer_len);
+		int res = munmap(al->buffer, al->buffer_len);
+    FAIL_SYS(res != 0, "failed unmap internal memory buffer\n", EXIT_FAILURE);
+    al->buffer_len += MEM_BUFFER;
+    al->buffer = (uint8_t *)resize;
 #else
     fprintf(stderr, "internal buffer too small. Not running on Linux, "
                     "Thus there is no mremap. Use your own buffer, or "
