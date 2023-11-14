@@ -185,6 +185,7 @@ static int check_operand_type(struct instr *instr_buffer, char *all_opd,
     break;
   // get register string from operand
   case 'r':
+	case 'x':
   case 'v':
   case 'y':
   case 'm':
@@ -210,7 +211,7 @@ static int operand_tok(struct instr *instr_buffer, char *opds, int opd_pos) {
   // get the 1st operand
   char *all_opd = strtok_r(opds, ",", &saved_opd);
   check_for_keyword(instr_buffer, all_opd, opd_pos);
-  // get the operand type can be 'i', 'r', or 'm'
+  // get the operand type can be 'i', 'r', 'x, 'v, 'y', or 'm'
   instr_buffer->opd[opd_pos].type = get_operand_type(all_opd);
   FAIL_IF(check_operand_type(instr_buffer, all_opd, opd_pos, saved_opd));
   // get next operand

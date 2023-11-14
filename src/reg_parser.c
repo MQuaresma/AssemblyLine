@@ -218,12 +218,15 @@ char get_operand_type(const char *operand) {
   // the starting character of each operand note the type
   if (operand[i] == '[')
     return 'm';
-  if (operand[i] >= 'a' && operand[i] <= 's')
-    return 'r';
+	//move these up as it's easier than adding a disjunction for scalar registers
+	if(operand[i] == 'm') 
+		return 'x';
   if (operand[i] == 'x')
     return 'v';
   if (operand[i] == 'y')
     return 'y';
+  if (operand[i] >= 'a' && operand[i] <= 's')
+    return 'r';
   if (operand[i] >= '0' && operand[i] <= '9')
     return 'i';
   if (operand[i] >= '-')

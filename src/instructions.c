@@ -24,14 +24,16 @@ const struct opd_format_table OPD_FORMAT_TABLE[] = {
                         // first operand does not exist or is an immediate
                         {n,   {'\0'}}, {n,   "i"},    
                         // first operand is a memory reference
-                        {m,   "m"},   {mi,  "mi"},  {mr,  "mr"},   
+                        {m,   "m"},   {mi,  "mi"},  {mr,  "mr"}, {mx, "mx"},
                         {mri, "mri"}, {mrr, "mrr"}, {mv,   "mv"},    
                         {my,  "my"}, 
                         // first operand is a register
-                        {r,   "r"},   {ri,  "ri"},  {rm,  "rm"},   
-                        {rmi, "rmi"}, {rmr, "rmr"}, {rr,  "rr"},    
-                        {rri, "rri"}, {rrm, "rrm"}, {rrr, "rrr"},  
-                        {rv,  "rv"},  
+                        {r,   "r"},   {ri,  "ri"},  {rm,  "rm"}, {rx, "rx"},
+                        {rmi, "rmi"}, {rmr, "rmr"}, {rr,  "rr"},
+                        {rri, "rri"}, {rrm, "rrm"}, {rrr, "rrr"},
+                        {rv,  "rv"},
+												// first operand is a mmx register
+												{xr, "xr"}, {xm, "xm"},
                         // first operand is a xmm register 
                         {vi,  "vi"},  {vr,  "vr"},  {vm,  "vm"},   
                         {vv,  "vv"},  {vri, "vri"}, {vmi, "vmi"},
@@ -164,8 +166,8 @@ const struct instr_table INSTR_TABLE[] = {
     {{'\0'},        movq,        {NA, mv},   MR,  VECTOR,         NA,  NA,  5,  {0x66, REX, 0x0f, 0xd6, REG}},
     {{'\0'},        movq,        {NA, rv},   MR,  VECTOR,         NA,  NA,  5,  {0x66, REX, 0x0f, 0x7e, REG}},
     {{'\0'},        movq,        {vm, vv},   RM,  VECTOR,         NA,  NA,  5,  {0xf3, REX, 0x0f, 0x7e, REG}},
-    {{'\0'},        movq,        {rm, rr},   RM,  VECTOR,         NA,  NA,  4,  {REX, 0x0f, 0x6e, REG}},
-		{{'\0'},        movq,        {rr, mr},   MR,  VECTOR,         NA,  NA,  4,  {REX, 0x0f, 0x7e, REG}},
+    {{'\0'},        movq,        {xm, xr},   RM,  VECTOR,         NA,  NA,  4,  {REX, 0x0f, 0x6e, REG}},
+		{{'\0'},        movq,        {rx, mx},   MR,  VECTOR,         NA,  NA,  4,  {REX, 0x0f, 0x7e, REG}},
     {"movzx",       movzx,       {rr, rm},   RM,  DATA_TRANSFER,  NA,  NA,  4,  {REX, 0x0f, 0xb6, REG}},
     {"mulpd",       mulpd,       {NA, vv},   RM,  VECTOR,         NA,  NA,  5,  {0x66, REX, 0x0f, 0x59, REG}},
     {"mulx",        mulx,        {rrr, rrm}, RVM, VECTOR_EXT,     NA,  NA,  3,  {VEX(NDD,LZ,XF2,X0F38,W0_W1), 0xf6, REG}},
