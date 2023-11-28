@@ -159,6 +159,7 @@ typedef enum {
   cvtpd2dq,
   dec,
   divpd,
+	emms,
   imul,
   inc,
   ja,
