@@ -33,7 +33,7 @@ const struct opd_format_table OPD_FORMAT_TABLE[] = {
                         {rri, "rri"}, {rrm, "rrm"}, {rrr, "rrr"},
                         {rv,  "rv"}, {rvi, "rvi"},
 												// first operand is a mmx register
-												{xr, "xr"}, {xm, "xm"},
+												{xr, "xr"}, {xm, "xm"}, {xx, "xx"},
                         // first operand is a xmm register 
                         {vi,  "vi"},  {vr,  "vr"},  {vm,  "vm"},   
                         {vv,  "vv"},  {vri, "vri"}, {vmi, "vmi"},
@@ -169,6 +169,7 @@ const struct instr_table INSTR_TABLE[] = {
     {{'\0'},        movq,        {vm, vv},   RM,  VECTOR,         NA,  NA,  5,  {0xf3, REX, 0x0f, 0x7e, REG}},
     {{'\0'},        movq,        {xm, xr},   RM,  VECTOR,         NA,  NA,  4,  {REX, 0x0f, 0x6e, REG}},
 		{{'\0'},        movq,        {rx, mx},   MR,  VECTOR,         NA,  NA,  4,  {REX, 0x0f, 0x7e, REG}},
+    {{'\0'},        movq,        {xx, xm},   RM,  VECTOR,         NA,  NA,  3,  {0x0f, 0x6f, REG}},
     {"movzx",       movzx,       {rr, rm},   RM,  DATA_TRANSFER,  NA,  NA,  4,  {REX, 0x0f, 0xb6, REG}},
     {"mulpd",       mulpd,       {NA, vv},   RM,  VECTOR,         NA,  NA,  5,  {0x66, REX, 0x0f, 0x59, REG}},
     {"mulx",        mulx,        {rrr, rrm}, RVM, VECTOR_EXT,     NA,  NA,  3,  {VEX(NDD,LZ,XF2,X0F38,W0_W1), 0xf6, REG}},
@@ -195,6 +196,7 @@ const struct instr_table INSTR_TABLE[] = {
     {{'\0'},        paddd,       {rm, rr},   RM,  VECTOR,         NA,  NA,  4,  {REX, 0x0f, 0xfe, REG}},
     {"paddq",       paddq,       {vm, vv},   RM,  VECTOR,         NA,  NA,  5,  {0x66, REX, 0x0f, 0xd4, REG}},
     {{'\0'},        paddq,       {rm, rr},   RM,  VECTOR,         NA,  NA,  4,  {REX, 0x0f, 0xd4, REG}},
+    {{'\0'},        paddq,       {xx, xm},   RM,  VECTOR,         NA,  NA,  3,  {0x0f, 0xd4, REG}},
     {"paddw",       paddw,       {vm, vv},   RM,  VECTOR,         NA,  NA,  5,  {0x66, REX, 0x0f, 0xfd, REG}},
     {{'\0'},        paddw,       {rm, rr},   RM,  VECTOR,         NA,  NA,  4,  {REX, 0x0f, 0xfd, REG}},
     {"pand",        pand,        {NA, vv},   RM,  VECTOR,         NA,  NA,  5,  {0x66, REX, 0x0f, 0xdb, REG}},

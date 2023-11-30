@@ -82,6 +82,7 @@ typedef enum {
   rx,
   xm,
   mx,
+  xx,
   vr,
   rv,
   vv,
