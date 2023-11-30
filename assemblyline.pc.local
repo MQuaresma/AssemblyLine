@@ -1,4 +1,4 @@
-prefix=~/assemblyline/
+prefix=/home/miguel/assemblyline
 exec_prefix=${prefix}
 libdir=${prefix}/.libs
 includedir=${prefix}/src
